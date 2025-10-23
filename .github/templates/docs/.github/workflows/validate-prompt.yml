@@ -1,0 +1,27 @@
+name: Validate AI Prompt Template
+on: [push, pull_request]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check template headings
+        run: |
+          file=".github/templates/ai_prompt_template.md"
+          if [ ! -f "$file" ]; then
+            echo "No template found, skipping."
+            exit 0
+          fi
+          missing=0
+          for h in "## Persona" "## Task" "## Context / Input" "## Format / Output" "## Constraints / Examples" "## Finish"; do
+            if ! grep -qF "$h" "$file"; then
+              echo "Missing heading: $h"
+              missing=1
+            fi
+          done
+          if [ $missing -eq 1 ]; then
+            echo "Template validation failed."
+            exit 1
+          else
+            echo "Template validation passed."
+          fi

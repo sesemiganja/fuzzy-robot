@@ -69,17 +69,18 @@ export const makeApiCall = async ({
     // Read the stream chunk by chunk
     while (true) {
       const { done, value } = await stream.read();
-      // Decode the chunk, considering if it's the final chunk
-      const chunk = decoder.decode(value, { stream: !done });
-
-      // Accumulate response and update state
-      streamResponse += chunk;
-      setC1Response(streamResponse);
 
       // Break the loop when stream is complete
       if (done) {
         break;
       }
+
+      // Decode the chunk (streaming mode)
+      const chunk = decoder.decode(value, { stream: true });
+
+      // Accumulate response and update state
+      streamResponse += chunk;
+      setC1Response(streamResponse);
     }
   } catch (error) {
     console.error("Error in makeApiCall:", error);

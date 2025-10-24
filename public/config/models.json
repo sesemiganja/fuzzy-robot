@@ -1,25 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/miurla/morphic/main/public/config/models.schema.json",
-  "defaultProvider": "openai",
+  "defaultProvider": "thesys",
   "providers": {
-    "openai": {
-      "name": "OpenAI",
-      "enabled": true,
-      "models": [
-        {
-          "id": "gpt-4o-mini",
-          "label": "GPT-4o Mini",
-          "capabilities": ["chat", "reasoning"],
-          "notes": "Fast, cost-effective"
-        },
-        {
-          "id": "gpt-4o",
-          "label": "GPT-4o",
-          "capabilities": ["chat", "vision", "reasoning"]
-        }
-      ],
-      "envKeys": ["OPENAI_API_KEY"]
-    },
     "thesys": {
       "name": "Thesys C1",
       "enabled": true,
